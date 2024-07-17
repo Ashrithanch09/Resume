@@ -1,4 +1,10 @@
-import { Box, Button, Paper, Typography, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Button,
+  Paper,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { saveAs } from "file-saver";
@@ -10,11 +16,11 @@ import codeforces from "../../assets/codeforces.png";
 import DownloadIcon from "@mui/icons-material/Download";
 import "../../styles/resumetemplate1.css";
 import { Link } from "react-router-dom";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import moment from "moment";
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 // import { saveAs } from "file-saver";
 import html2pdf from "html2pdf.js";
 import Feedback from "../Feedback";
@@ -32,12 +38,11 @@ export default function Template1() {
   const [feedbackShown, setFeedbackShown] = useState(false);
 
   useEffect(() => {
-    const feedbackAlreadyShown = localStorage.getItem('feedbackShown');
+    const feedbackAlreadyShown = localStorage.getItem("feedbackShown");
     if (feedbackAlreadyShown) {
       setFeedbackShown(true);
     }
   }, []);
-
 
   const handleDownload = () => {
     try {
@@ -47,28 +52,26 @@ export default function Template1() {
         setLoading(true);
         const opt = {
           margin: 0.1,
-          filename: 'user-resume.pdf',
-          image: { type: 'jpeg', quality: 1.00 },
+          filename: "user-resume.pdf",
+          image: { type: "jpeg", quality: 1.0 },
           html2canvas: { scale: 4 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Ensure proper page breaks
+          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+          // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Ensure proper page breaks
         };
 
-        html2pdf().set(opt).from(resumeContainer).save().then(() => {
-          setLoading(false); // End loading state after PDF is generated
-          setCongratsVisible(true); // Trigger Confetti effect
+        html2pdf()
+          .set(opt)
+          .from(resumeContainer)
+          .save()
+          .then(() => {
+            setLoading(false); // End loading state after PDF is generated
+            setCongratsVisible(true); // Trigger Confetti effect
 
-          // Reset confetti after 5 seconds
-          setTimeout(() => {
-            setCongratsVisible(false);
-            // Show feedback dialog only once
-            if (!feedbackShown) {
-              setOpen(true);
-              localStorage.setItem('feedbackShown', 'true');
-              setFeedbackShown(true);
-            }
-          }, 5000);
-        });
+            // Reset confetti after 5 seconds
+            setTimeout(() => {
+              setCongratsVisible(false);
+            }, 5000);
+          });
       } else {
         console.error("Resume container not found.");
         setLoading(false);
@@ -87,16 +90,12 @@ export default function Template1() {
     setOpen(false);
   };
 
-
-
-
-
   const customStyle = {
-    width: "100%",
-    maxWidth: "794px",
+    width: "120%",
+    maxWidth: "800px",
     // margin: "auto",
-    height: "1123px",
-    maxHeight: "1123px",
+    height: "1200px",
+    maxHeight: "1300px",
     padding: "1rem 2rem 1rem 2rem",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
     backgroundColor: "#ffffff",
@@ -111,7 +110,7 @@ export default function Template1() {
     projects: "/projects",
     experience: "/experience",
     extraDetails: "/extraDetails",
-  }
+  };
 
   return (
     <>
@@ -131,7 +130,12 @@ export default function Template1() {
           flexGrow: 1,
         }}
       >
-        <Paper className="resume-container" elevation={2} style={customStyle} ref={ref}>
+        <Paper
+          className="resume-container"
+          elevation={2}
+          style={customStyle}
+          ref={ref}
+        >
           <Box sx={{ flexShrink: 4 }}>
             {/* Heading */}
             <h1 className="name-heading">
@@ -139,15 +143,23 @@ export default function Template1() {
             </h1>
             <div className="user-detail">
               <div className="data">
-                <p ><i className="fa-solid fa-phone" /></p>
+                <p>
+                  <i className="fa-solid fa-phone" />
+                </p>
                 <p className="sub-heading">{profile.mobile}</p>
               </div>
               <div className="data">
-                <p > <i className="fa-solid fa-envelope" /></p>
+                <p>
+                  {" "}
+                  <i className="fa-solid fa-envelope" />
+                </p>
                 <p className="sub-heading">{profile.email}</p>
               </div>
               <div className="data">
-                <p > <i className="fa-solid fa-map-marker" /></p>
+                <p>
+                  {" "}
+                  <i className="fa-solid fa-map-marker" />
+                </p>
                 <p className="sub-heading">{profile.address}</p>
               </div>
 
@@ -157,7 +169,6 @@ export default function Template1() {
             <div className="resume-content">
               {/* Left section */}
               <div className="left-section">
-
                 {/* Education */}
                 <div className="education-info">
                   <div className="heading">Education</div>
@@ -199,9 +210,10 @@ export default function Template1() {
                         </div>
                       </div>
                       <div className="grade">
-                        {education?.percentage && <p>Percentage: {education?.percentage}%</p>}
+                        {education?.percentage && (
+                          <p>Percentage: {education?.percentage}%</p>
+                        )}
                       </div>
-
                     </div>
                   </div>
                   {/* Part 3 */}
@@ -219,79 +231,90 @@ export default function Template1() {
                         </div>
                       </div>
                       <div className="grade">
-                        {education?.percentage2 && <p>Percentage: {education?.percentage2}%</p>}
+                        {education?.percentage2 && (
+                          <p>Percentage: {education?.percentage2}%</p>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Skills */}
-                {extraDetails?.skills.languages && extraDetails?.skills.languages.length > 0 && (
-                  <div className="skills">
-                    <div className="heading">Skills</div>
-                    <hr />
-                    {extraDetails?.skills.languages?.length > 0 && (
-                      <>
-                        <h4 className="skill-names">Languages:</h4>
-                        <div className="skillset">
-                          <ul className="sk">
-                            {extraDetails?.skills.languages?.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                    {extraDetails?.skills.web?.length > 0 && (
-                      <>
-                        <h4 className="skill-names">Web:</h4>
-                        <div className="skillset">
-                          <ul className="sk">
-                            {extraDetails?.skills.web?.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                    {extraDetails?.skills.webFrameworks?.length > 0 && (
-                      <>
-                        <h4 className="skill-names">WebFramworks:</h4>
-                        <div className="skillset">
-                          <ul className="sk">
-                            {extraDetails?.skills.webFrameworks?.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                    {extraDetails?.skills.databases?.length > 0 && (
-                      <>
-                        <h4 className="skill-names">Databases:</h4>
-                        <div className="skillset">
-                          <ul className="sk">
-                            {extraDetails?.skills.databases?.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                    {extraDetails?.skills.other?.length > 0 && (
-                      <>
-                        <h4 className="skill-names">Other:</h4>
-                        <div className="skillset">
-                          <ul className="sk">
-                            {extraDetails?.skills.other?.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
+                {extraDetails?.skills.languages &&
+                  extraDetails?.skills.languages.length > 0 && (
+                    <div className="skills">
+                      <div className="heading">Skills</div>
+                      <hr />
+                      {extraDetails?.skills.languages?.length > 0 && (
+                        <>
+                          <h4 className="skill-names">Languages:</h4>
+                          <div className="skillset">
+                            <ul className="sk">
+                              {extraDetails?.skills.languages?.map(
+                                (skill, index) => (
+                                  <li key={index}>{skill}</li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                      {extraDetails?.skills.web?.length > 0 && (
+                        <>
+                          <h4 className="skill-names">Web:</h4>
+                          <div className="skillset">
+                            <ul className="sk">
+                              {extraDetails?.skills.web?.map((skill, index) => (
+                                <li key={index}>{skill}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                      {extraDetails?.skills.webFrameworks?.length > 0 && (
+                        <>
+                          <h4 className="skill-names">WebFramworks:</h4>
+                          <div className="skillset">
+                            <ul className="sk">
+                              {extraDetails?.skills.webFrameworks?.map(
+                                (skill, index) => (
+                                  <li key={index}>{skill}</li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                      {extraDetails?.skills.databases?.length > 0 && (
+                        <>
+                          <h4 className="skill-names">Databases:</h4>
+                          <div className="skillset">
+                            <ul className="sk">
+                              {extraDetails?.skills.databases?.map(
+                                (skill, index) => (
+                                  <li key={index}>{skill}</li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                      {extraDetails?.skills.other?.length > 0 && (
+                        <>
+                          <h4 className="skill-names">Other:</h4>
+                          <div className="skillset">
+                            <ul className="sk">
+                              {extraDetails?.skills.other?.map(
+                                (skill, index) => (
+                                  <li key={index}>{skill}</li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
 
                 {/* Links */}
 
@@ -304,7 +327,12 @@ export default function Template1() {
                         <>
                           <img src={github} alt="github" />
                           <div className="ls">
-                            <Link to={profile.github} className="link" target="_blank" rel="noopener noreferrer">
+                            <Link
+                              to={profile.github}
+                              className="link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               {profile.lastName.length > 6 ? (
                                 <p>{profile.firstName?.toLowerCase()}</p>
                               ) : (
@@ -323,7 +351,12 @@ export default function Template1() {
                         <>
                           <img src={leetcode} alt="leetcode" />
                           <div className="ls">
-                            <Link to={profile.leetcode} className="link" target="_blank" rel="noopener noreferrer">
+                            <Link
+                              to={profile.leetcode}
+                              className="link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               {profile.lastName.length > 6 ? (
                                 <p>{profile.firstName?.toLowerCase()}</p>
                               ) : (
@@ -342,7 +375,12 @@ export default function Template1() {
                         <>
                           <img src={codechef} alt="codechef" />
                           <div className="ls">
-                            <Link to={profile.codechef} className="link" target="_blank" rel="noopener noreferrer">
+                            <Link
+                              to={profile.codechef}
+                              className="link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               {profile.lastName.length > 6 ? (
                                 <p>{profile.firstName?.toLowerCase()}</p>
                               ) : (
@@ -361,7 +399,12 @@ export default function Template1() {
                         <>
                           <img src={codeforces} alt="codeforces" />
                           <div className="ls">
-                            <Link to={profile.codeforces} className="link" target="_blank" rel="noopener noreferrer">
+                            <Link
+                              to={profile.codeforces}
+                              className="link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               {profile.lastName.length > 6 ? (
                                 <p>{profile.firstName?.toLowerCase()}</p>
                               ) : (
@@ -388,20 +431,17 @@ export default function Template1() {
                     <ul>
                       {/* <li key={index}>{subject}</li> */}
                       <li>Data Structures and Algorithms</li>
-                      <li>Object Oriented Programming</li>
+                      {/* <li>Object Oriented Programming</li> */}
                       <li>Database Management System</li>
                       <li>Operating System</li>
                     </ul>
                     {/* ))} */}
                   </div>
                 </div>
-
-
               </div>
 
               {/* Right section */}
               <div className="right-section">
-
                 {/* Experience */}
                 {experience?.length > 0 && (
                   <div className="experience">
@@ -411,10 +451,11 @@ export default function Template1() {
                       <div className="lists">
                         {experience.map((exp, index) => (
                           <div key={index}>
-                            <div className='role-date'>
+                            <div className="role-date">
                               <p id="role">{exp.role}</p>
                               <p id="date">
-                                {moment(exp.start_date).format("MMM-YYYY")} - {moment(exp.end_date).format("MMM-YYYY")}
+                                {moment(exp.start_date).format("MMM-YYYY")} -{" "}
+                                {moment(exp.end_date).format("MMM-YYYY")}
                               </p>
                             </div>
                             <div className="company">
@@ -422,7 +463,7 @@ export default function Template1() {
                             </div>
                             <div className="expr-desc">
                               <ul>
-                                {exp?.desc?.split('\n')?.map((line, index) => (
+                                {exp?.desc?.split("\n")?.map((line, index) => (
                                   <li key={index}>{line}</li>
                                 ))}
                               </ul>
@@ -444,14 +485,20 @@ export default function Template1() {
                         <div key={index}>
                           <div className="project-names">
                             <p>{project.title}</p>
-                            <p id="link-icons"><Link to={project.link}><i class="fa-solid fa-link"></i></Link></p>
+                            <p id="link-icons">
+                              <Link to={project.link}>
+                                <i class="fa-solid fa-link"></i>
+                              </Link>
+                            </p>
                           </div>
                           <p id="tech-stacks">{project.techStack}</p>
                           <div className="project-descs">
                             <ul>
-                              {project?.description?.split('\n')?.map((line, index) => (
-                                <li key={index}>{line}</li>
-                              ))}
+                              {project?.description
+                                ?.split("\n")
+                                ?.map((line, index) => (
+                                  <li key={index}>{line}</li>
+                                ))}
                             </ul>
                           </div>
                         </div>
@@ -461,19 +508,20 @@ export default function Template1() {
                 )}
 
                 {/* Achievements */}
-                {extraDetails?.achievements && extraDetails?.achievements.length > 0 && (
-                  <div className="achievements">
-                    <div className="heading">Achievements</div>
-                    <hr />
-                    <div className="list">
-                      {extraDetails?.achievements?.map((achieve, index) => (
-                        <ul>
-                          <li key={index}> {achieve}</li>
-                        </ul>
-                      ))}
+                {extraDetails?.achievements &&
+                  extraDetails?.achievements.length > 0 && (
+                    <div className="achievements">
+                      <div className="heading">Achievements</div>
+                      <hr />
+                      <div className="list">
+                        {extraDetails?.achievements?.map((achieve, index) => (
+                          <ul>
+                            <li key={index}> {achieve}</li>
+                          </ul>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* Extra Curricular */}
                 {extraDetails?.extraCoCurricular &&
@@ -499,7 +547,6 @@ export default function Template1() {
           </Box>
         </Paper>
 
-
         <Button
           variant="contained"
           sx={{
@@ -507,8 +554,8 @@ export default function Template1() {
             borderRadius: "20px",
             width: "12rem",
             backgroundColor: "var(--btn)",
-            color: 'black',
-            '&:hover': { backgroundColor: "var(--btnHover)" }
+            color: "black",
+            "&:hover": { backgroundColor: "var(--btnHover)" },
           }}
           onClick={handleDownload}
           endIcon={<DownloadIcon />}
@@ -516,7 +563,7 @@ export default function Template1() {
           disabled={loading} // Disable button while loading
         >
           {loading ? ( // Conditionally render loading indicator
-            <CircularProgress size={24} color="inherit" />
+            <CircularProgress size={20} color="inherit" />
           ) : (
             "Download"
           )}

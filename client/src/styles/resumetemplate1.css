@@ -255,33 +255,6 @@ body {
   display: flex;
 }
 
-.subjects{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-top: 16px;
-}
-
-.subjects .heading {
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-.subjects .subject-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.subjects .subject-list ul {
-  list-style-type: disc;
-  margin-left: 20px;
-}
-
-.subjects .subject-list li {
-  font-size: 1rem;
-}
-
 /* Right Content */
 .right-section {
   width: 65%;
@@ -463,7 +436,6 @@ body {
 .extra-curricular .extra-list li {
   font-size: 1rem;
 }
-
 
 .download-button {
   background-color: #007bff;

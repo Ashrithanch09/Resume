@@ -1,4 +1,10 @@
-import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { saveAs } from "file-saver";
@@ -9,16 +15,15 @@ import leetcode from "../../assets/leetcode.png";
 import codechef from "../../assets/codechef.png";
 import codeforces from "../../assets/codeforces.png";
 import DownloadIcon from "@mui/icons-material/Download";
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import EmailIcon from '@mui/icons-material/Email';
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import EmailIcon from "@mui/icons-material/Email";
 import "../../styles/resumetemplate2.css";
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
-
+import { Link } from "react-router-dom";
+import moment from "moment";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 export default function Template2() {
   const profile = useSelector((state) => state.profileDetails);
@@ -37,22 +42,26 @@ export default function Template2() {
         setLoading(true);
         const opt = {
           margin: 0.1,
-          filename: 'user-resume.pdf',
-          image: { type: 'jpeg', quality: 1.00 },
+          filename: "user-resume.pdf",
+          image: { type: "jpeg", quality: 1.0 },
           html2canvas: { scale: 4 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Ensure proper page breaks
+          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+          //pagebreak: { mode: ["avoid-all", "css", "legacy"] }, // Ensure proper page breaks
         };
 
-        html2pdf().set(opt).from(resumeContainer).save().then(() => {
-          setLoading(false); // End loading state after PDF is generated
-          setCongratsVisible(true); // Trigger Confetti effect
+        html2pdf()
+          .set(opt)
+          .from(resumeContainer)
+          .save()
+          .then(() => {
+            setLoading(false); // End loading state after PDF is generated
+            setCongratsVisible(true); // Trigger Confetti effect
 
-          // Reset confetti after 5 seconds
-          setTimeout(() => {
-            setCongratsVisible(false);
-          }, 5000);
-        });
+            // Reset confetti after 5 seconds
+            setTimeout(() => {
+              setCongratsVisible(false);
+            }, 5000);
+          });
       } else {
         console.error("Resume container not found.");
         setLoading(false);
@@ -63,13 +72,12 @@ export default function Template2() {
     }
   };
 
-
   const customStyle = {
-    width: "100%",
-    maxWidth: "794px",
+    width: "200%",
+    maxWidth: "700px",
     margin: "auto",
-    height: "1123px",
-    maxHeight: "1123px",
+    height: "1200px",
+    maxHeight: "1200px",
     padding: "1rem 2rem 1rem 2rem",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
     backgroundColor: "#ffffff",
@@ -85,15 +93,14 @@ export default function Template2() {
     projects: "/projects",
     experience: "/experience",
     extraDetails: "/extraDetails",
-  }
-
+  };
 
   return (
     <>
       <Confetti
         width={window.innerWidth}
         height={window.innerHeight}
-        numberOfPieces={congratsVisible ? 600 : 0}
+        numberOfPieces={congratsVisible ? 500 : 0}
       />
 
       <Box
@@ -114,17 +121,32 @@ export default function Template2() {
             </h1>
             <div className="user-details">
               <div className="data">
-                <p ><i className="fa-solid fa-phone" /></p>
+                <p>
+                  <i className="fa-solid fa-phone" />
+                </p>
                 <p className="sub-heading">{profile.mobile}</p>
               </div>
               <div className="data">
-                <p > <i className="fa-solid fa-envelope" /></p>
+                <p>
+                  {" "}
+                  <i className="fa-solid fa-envelope" />
+                </p>
                 <p className="sub-heading">{profile.email}</p>
               </div>
               {profile.github && (
                 <div className="link-coding">
-                  <Link to={profile.github} target="_blank" rel="noopener noreferrer" className="linked">
-                    <img src={github} alt="github" width={'20px'} height={'20px'} />
+                  <Link
+                    to={profile.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linked"
+                  >
+                    <img
+                      src={github}
+                      alt="github"
+                      width={"10px"}
+                      height={"10px"}
+                    />
                     {profile.lastName.length > 6 ? (
                       <p>{profile.firstName?.toLowerCase()}_</p>
                     ) : (
@@ -138,8 +160,18 @@ export default function Template2() {
               )}
               {profile.leetcode && (
                 <div className="link-coding">
-                  <Link to={profile.leetcode} target="_blank" rel="noopener noreferrer" className="linked">
-                    <img src={leetcode} alt="leetcode" width={'20px'} height={'20px'} />
+                  <Link
+                    to={profile.leetcode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linked"
+                  >
+                    <img
+                      src={leetcode}
+                      alt="leetcode"
+                      width={"10px"}
+                      height={"10px"}
+                    />
                     {profile.lastName.length > 6 ? (
                       <p>{profile.firstName?.toLowerCase()}_</p>
                     ) : (
@@ -153,8 +185,18 @@ export default function Template2() {
               )}
               {profile.codechef && (
                 <div className="link-coding">
-                  <Link to={profile.codechef} target="_blank" rel="noopener noreferrer" className="linked">
-                    <img src={codechef} alt="codechef" width={'20px'} height={'20px'} />
+                  <Link
+                    to={profile.codechef}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linked"
+                  >
+                    <img
+                      src={codechef}
+                      alt="codechef"
+                      width={"10px"}
+                      height={"10px"}
+                    />
                     {profile.lastName.length > 6 ? (
                       <p>{profile.firstName?.toLowerCase()}_</p>
                     ) : (
@@ -168,8 +210,18 @@ export default function Template2() {
               )}
               {profile.codeforces && (
                 <div className="link-coding">
-                  <Link to={profile.codeforces} target="_blank" rel="noopener noreferrer" className="linked">
-                    <img src={codeforces} alt="codeforces" width={'20px'} height={'20px'} />
+                  <Link
+                    to={profile.codeforces}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linked"
+                  >
+                    <img
+                      src={codeforces}
+                      alt="codeforces"
+                      width={"10px"}
+                      height={"10px"}
+                    />
                     {profile.lastName.length > 6 ? (
                       <p>{profile.firstName?.toLowerCase()}_</p>
                     ) : (
@@ -194,10 +246,11 @@ export default function Template2() {
                   <div className="expr-section">
                     {experience.map((exp, index) => (
                       <div key={index}>
-                        <div className='role-date'>
+                        <div className="role-date">
                           <p id="role">{exp.role}</p>
                           <p id="date">
-                            {moment(exp.start_date).format("MMM-YYYY")} - {moment(exp.end_date).format("MMM-YYYY")}
+                            {moment(exp.start_date).format("MMM-YYYY")} -{" "}
+                            {moment(exp.end_date).format("MMM-YYYY")}
                           </p>
                         </div>
                         <div className="company">
@@ -205,7 +258,7 @@ export default function Template2() {
                         </div>
                         <div className="expr-desc">
                           <ul>
-                            {exp?.desc?.split('\n')?.map((line, index) => (
+                            {exp?.desc?.split("\n")?.map((line, index) => (
                               <li key={index}>{line}</li>
                             ))}
                           </ul>
@@ -226,14 +279,20 @@ export default function Template2() {
                       <div key={index}>
                         <div className="project-name">
                           <p>{project.title}</p>
-                          <p id="link-icon"><Link to={project.link}><i class="fa-solid fa-link"></i></Link></p>
+                          <p id="link-icon">
+                            <Link to={project.link}>
+                              <i class="fa-solid fa-link"></i>
+                            </Link>
+                          </p>
                           <p id="tech-stack">{project.techStack}</p>
                         </div>
                         <div className="project-desc">
                           <ul>
-                            {project?.description?.split('\n')?.map((line, index) => (
-                              <li key={index}>{line}</li>
-                            ))}
+                            {project?.description
+                              ?.split("\n")
+                              ?.map((line, index) => (
+                                <li key={index}>{line}</li>
+                              ))}
                           </ul>
                         </div>
                       </div>
@@ -254,13 +313,20 @@ export default function Template2() {
                       <p>{education?.college}</p>
                     </div>
                     <div className="degree">
-                      <p>{education.field && education.branch && `${education.field} in ${education.branch}`}</p>
+                      <p>
+                        {education.field &&
+                          education.branch &&
+                          `${education.field} in ${education.branch}`}
+                      </p>
                     </div>
                   </div>
                   <div className="info-2">
                     <div className="year">
-                      <p>{education.startYear && education.endYear && `${education.startYear} - ${education.endYear}`}</p>
-
+                      <p>
+                        {education.startYear &&
+                          education.endYear &&
+                          `${education.startYear} - ${education.endYear}`}
+                      </p>
                     </div>
                     <div className="cgpa">
                       {education?.grades && <p>CGPA: {education?.grades}</p>}
@@ -280,10 +346,16 @@ export default function Template2() {
                   </div>
                   <div className="info-2">
                     <div className="year">
-                      <p>{education.startYear2 && education.endYear2 && `${education.startYear2} - ${education.endYear2}`}</p>
+                      <p>
+                        {education.startYear2 &&
+                          education.endYear2 &&
+                          `${education.startYear2} - ${education.endYear2}`}
+                      </p>
                     </div>
                     <div className="cgpa">
-                      {education.percentage && <p>Per: {education.percentage}%</p>}
+                      {education.percentage && (
+                        <p>Per: {education.percentage}%</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -300,16 +372,20 @@ export default function Template2() {
                   </div>
                   <div className="info-2">
                     <div className="year">
-                      <p>{education.startYear3 && education.endYear3 && `${education.startYear3} - ${education.endYear3}`}</p>
-
+                      <p>
+                        {education.startYear3 &&
+                          education.endYear3 &&
+                          `${education.startYear3} - ${education.endYear3}`}
+                      </p>
                     </div>
                     <div className="cgpa">
-                      {education.percentage2 && <p>Per: {education.percentage2}%</p>}
+                      {education.percentage2 && (
+                        <p>Per: {education.percentage2}%</p>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
-
 
               {/* Skiils */}
               <div className="skill-section">
@@ -358,9 +434,12 @@ export default function Template2() {
               </div>
 
               {/* Achievements and ExtraCurricular */}
-              {(extraDetails.achievements.length > 0 || extraDetails.extraCoCurricular.length > 0) && (
+              {(extraDetails.achievements.length > 0 ||
+                extraDetails.extraCoCurricular.length > 0) && (
                 <div className="achievement-extracurricular">
-                  <h2 className="achieve-title">Achievements and ExtraCurricular</h2>
+                  <h2 className="achieve-title">
+                    Achievements and ExtraCurricular
+                  </h2>
                   <hr />
                   <div className="achieve-list">
                     {extraDetails.achievements.map((achieve, index) => (
@@ -376,10 +455,9 @@ export default function Template2() {
                   </div>
                 </div>
               )}
-
             </div>
           </Box>
-        </Paper >
+        </Paper>
 
         <Button
           variant="contained"
@@ -388,8 +466,8 @@ export default function Template2() {
             borderRadius: "20px",
             width: "12rem",
             backgroundColor: "var(--btn)",
-            color: 'black',
-            '&:hover': { backgroundColor: "var(--btnHover)" }
+            color: "black",
+            "&:hover": { backgroundColor: "var(--btnHover)" },
           }}
           onClick={handleDownload}
           endIcon={<DownloadIcon />}
@@ -397,7 +475,7 @@ export default function Template2() {
           disabled={loading} // Disable button while loading
         >
           {loading ? ( // Conditionally render loading indicator
-            <CircularProgress size={24} color="inherit" />
+            <CircularProgress size={30} color="inherit" />
           ) : (
             "Download"
           )}
@@ -436,10 +514,7 @@ export default function Template2() {
             ))}
           </div>
         </Box> */}
-
-
-      </Box >
+      </Box>
     </>
   );
 }
-
